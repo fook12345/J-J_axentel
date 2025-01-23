@@ -18,7 +18,7 @@ def root():
         </head>
         <body>
             <h1>Welcome to the Inventory</h1>
-            <p>This is the inventory management system.</p>
+            <p>This is the inventory management system flow.</p>
         </body>
     </html>
     """
