@@ -20,6 +20,7 @@ def root():
             <h1>Welcome to the Inventory</h1>
             <p>This is the inventory management system flow.</p>
             <p>This is the inventory management on token.</p>
+            <p>This is the inventory management on token2222.</p>
         </body>
     </html>
     """
