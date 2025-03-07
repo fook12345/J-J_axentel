@@ -1,31 +1,15 @@
 // src/pages/TicketHistoryView.jsx
 import { useState, useEffect } from "react";
-import { useNavigate /*, useParams*/ } from "react-router-dom";
+import /*, useParams*/ "react-router-dom";
 import "./styles/TicketHistoryView.css";
+import Sidebar from "./components/Sidebar";
+import Headerbar from "./components/Headerbar";
 
 function TicketHistoryView() {
-  const navigate = useNavigate();
   /*const { ticketNumber } = useParams(); // รับพารามิเตอร์จาก URL: /ticket/history/view/:ticketNumber*/
 
   // State สำหรับเก็บข้อมูล ticket รายการเดียว
   const [ticket, setTicket] = useState([]);
-
-  // ฟังก์ชันปุ่ม Nav
-  const handleBack = () => {
-    navigate(-1);
-  };
-  const handleForward = () => {
-    navigate(1);
-  };
-  const handleMinimize = () => {
-    alert("Minimize window");
-  };
-  const handleMaximize = () => {
-    alert("Maximize window");
-  };
-  const handleClose = () => {
-    alert("Close window");
-  };
   /*
   useEffect(() => {
     const fetchTicketDetail = async () => {
@@ -82,75 +66,9 @@ function TicketHistoryView() {
 
   return (
     <div className="home-container">
-      {/* Sidebar ซ้าย */}
-      <div className="sidebar">
-        <div className="sidebar-logo">
-          <img src="/image/axentel logo.png" alt="logo" />
-        </div>
-        <ul className="sidebar-menu">
-          <li className="menu-item active" onClick={() => navigate("/home")}>
-            <img src="/image/hom.png" alt="home icon" className="menu-icon" />
-            <span>HOME</span>
-          </li>
-          <li className="menu-item">
-            <img
-              src="/image/dashboard.png"
-              alt="dashboard icon"
-              className="menu-icon"
-            />
-            <span>DASHBOARD</span>
-          </li>
-          <li className="menu-item">
-            <img
-              src="/image/noti.png"
-              alt="notification icon"
-              className="menu-icon"
-            />
-            <span>NOTIFICATION</span>
-          </li>
-          <li className="menu-item">
-            <img
-              src="/image/set.png"
-              alt="setting icon"
-              className="menu-icon"
-            />
-            <span>SETTING</span>
-          </li>
-        </ul>
-      </div>
-
-      {/* Header + Content ส่วนขวา */}
+      <Sidebar />
       <div className="main-content">
-        <div className="header-bar">
-          <div className="nav-buttons">
-            <button onClick={handleBack} className="nav-btn">
-              ◀
-            </button>
-            <button onClick={handleForward} className="nav-btn">
-              ▶
-            </button>
-          </div>
-          <div className="user-info">
-            <span className="username">Mr.somchai (ADMIN)</span>
-            <img
-              src="/image/knight.jpeg"
-              alt="profile"
-              className="profile-pic"
-            />
-            <div className="window-controls">
-              <button onClick={handleMinimize} className="window-btn">
-                –
-              </button>
-              <button onClick={handleMaximize} className="window-btn">
-                □
-              </button>
-              <button onClick={handleClose} className="window-btn">
-                x
-              </button>
-            </div>
-          </div>
-        </div>
-
+        <Headerbar />
         <div className="content-area">
           <div className="ticket-detail-header">
             <h1 className="page-title">TICKET / History / View</h1>

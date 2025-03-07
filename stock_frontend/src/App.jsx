@@ -16,6 +16,12 @@ import TicketInProgressView from "./pages/TicketInProgressView";
 import TicketCompletedView from "./pages/TicketCompletedView";
 import TicketReturn from "./pages/TicketReturn";
 import Inventory from "./pages/Inventory";
+import InventoryLocation from "./pages/InventoryLocation";
+import InventoryLocation1st from "./pages/InventoryLocation1st";
+import InventoryLocation3rd from "./pages/InventoryLocation3rd";
+import InventoryLocationFaulty from "./pages/InventoryLocationFaulty";
+import InventoryTest from "./pages/InventoryTest";
+import InventoryStatus from "./pages/InventoryStatus";
 
 function App() {
   return (
@@ -45,12 +51,23 @@ function App() {
         element={<TicketReturn />}
       />
       <Route path="/inventory" element={<Inventory />} />
+      <Route path="/inventory/location" element={<InventoryLocation />} />
+      <Route
+        path="/inventory/location/1st"
+        element={<InventoryLocation1st />}
+      />
+      <Route
+        path="/inventory/location/3rd"
+        element={<InventoryLocation3rd />}
+      />
+      <Route
+        path="/inventory/location/faulty"
+        element={<InventoryLocationFaulty />}
+      />
+      <Route path="/inventory/test" element={<InventoryTest />} />
+      <Route path="/inventory/status" element={<InventoryStatus />} />
     </Routes>
   );
 }
 
 export default App;
-/*
-<Route path="/inventory/location" element={<InventoryLocation />} />
-<Route path="/inventory/test" element={<InventoryTest />} />
-<Route path="/inventory/status" element={<InventoryStatus />} />*/

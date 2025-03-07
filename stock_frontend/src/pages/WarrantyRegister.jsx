@@ -1,7 +1,8 @@
 // src/pages/WarrantyRegister.jsx
 import { useState } from "react";
 import "./styles/WarrantyRegister.css";
-import { useNavigate } from "react-router-dom";
+import Sidebar from "./components/Sidebar";
+import Headerbar from "./components/Headerbar";
 
 function WarrantyRegister() {
   // สร้าง state สำหรับเก็บข้อมูลแต่ละฟิลด์
@@ -9,30 +10,6 @@ function WarrantyRegister() {
   const [serial, setSerial] = useState("");
   const [condition, setCondition] = useState("");
   const [provider, setProvider] = useState("");
-
-  const navigate = useNavigate();
-  // ปุ่ม nav (back/forward/minimize/close) ตัวอย่าง
-  const handleBack = () => {
-    // navigate(-1) = ถอยกลับ 1 หน้าใน history
-    navigate(-1);
-  };
-
-  const handleForward = () => {
-    // navigate(1) = ไปข้างหน้า 1 หน้าใน history (ถ้ามี)
-    navigate(1);
-  };
-
-  const handleMinimize = () => {
-    alert("Minimize window");
-  };
-
-  const handleMaximize = () => {
-    alert("Maximize window");
-  };
-
-  const handleClose = () => {
-    alert("Close window");
-  };
 
   // ฟังก์ชันกดปุ่ม ADD
   const handleAdd = async (e) => {
@@ -64,75 +41,10 @@ function WarrantyRegister() {
 
   return (
     <div className="home-container">
-      {/* Sidebar */}
-      <div className="sidebar">
-        <div className="sidebar-logo">
-          <img src="/image/axentel logo.png" alt="logo" />
-        </div>
-        <ul className="sidebar-menu">
-          <li className="menu-item active" onClick={() => navigate("/home")}>
-            <img src="/image/hom.png" alt="home icon" className="menu-icon" />
-            <span>HOME</span>
-          </li>
-          <li className="menu-item">
-            <img
-              src="/image/dashboard.png"
-              alt="dashboard icon"
-              className="menu-icon"
-            />
-            <span>DASHBOARD</span>
-          </li>
-          <li className="menu-item">
-            <img
-              src="/image/noti.png"
-              alt="notification icon"
-              className="menu-icon"
-            />
-            <span>NOTIFICATION</span>
-          </li>
-          <li className="menu-item">
-            <img
-              src="/image/set.png"
-              alt="setting icon"
-              className="menu-icon"
-            />
-            <span>SETTING</span>
-          </li>
-        </ul>
-      </div>
+      <Sidebar />
 
       <div className="main-content">
-        {/* Header bar */}
-        <div className="header-bar">
-          <div className="nav-buttons">
-            <button onClick={handleBack} className="nav-btn">
-              ◀
-            </button>
-            <button onClick={handleForward} className="nav-btn">
-              ▶
-            </button>
-          </div>
-          <div className="user-info">
-            <span className="username">Mr.somchai (ADMIN)</span>
-            <img
-              src="/image/knight.jpeg"
-              alt="profile"
-              className="profile-pic"
-            />
-            <div className="window-controls">
-              <button onClick={handleMinimize} className="window-btn">
-                –
-              </button>
-              <button onClick={handleMaximize} className="window-btn">
-                □
-              </button>
-              <button onClick={handleClose} className="window-btn">
-                x
-              </button>
-            </div>
-          </div>
-        </div>
-
+        <Headerbar />
         <div className="content-area">
           <h2 className="page-title">WARRANTY / ลงทะเบียน warranty</h2>
 
