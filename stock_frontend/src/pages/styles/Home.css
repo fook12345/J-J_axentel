@@ -218,3 +218,119 @@
   font-size: 14px;
   color: #333;
 }
+
+/* Popup Overlay */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.setting-popup {
+  background-color: #fff;
+  padding: 20px 30px;
+  border-radius: 8px;
+  width: 300px;
+  position: relative;
+  text-align: left;
+}
+
+.close-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.darkmode-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  border-radius: 24px;
+  transition: 0.4s;
+}
+
+.slider:before {
+  content: "";
+  position: absolute;
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: #fff;
+  border-radius: 50%;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #ffa500;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+/* ตัวอย่าง CSS Dark Mode */
+
+/* เมื่อ <body> มี class "dark-mode", เปลี่ยนสีพื้นหลัง/ตัวหนังสือ */
+.dark-mode {
+  background-color: #333; /* พื้นหลังมืด */
+  color: #fff; /* ตัวหนังสือขาว */
+}
+
+/* ถ้าใน layout ของคุณมี .sidebar, .header-bar, .content-area ฯลฯ 
+   สามารถกำหนดให้ .dark-mode .sidebar {...} ได้ */
+.dark-mode .sidebar {
+  background-color: #444; /* Sidebar มืดลงอีก */
+  color: #fff;
+}
+
+/* ตัวอย่าง header-bar */
+.dark-mode .header-bar {
+  background-color: #444;
+  color: #fff;
+}
+
+/* ตัวอย่าง content-area */
+.dark-mode .content-area {
+  background-color: #333;
+  color: #fff;
+}
+
+/* ถ้ามีปุ่ม เมนู ไอคอน หรือ text อื่น ๆ ก็ปรับสีตามต้องการ */
+.dark-mode .menu-item.active span {
+  color: #ffa500; /* เน้นสีส้ม */
+}
+
+/* เป็นต้น */
