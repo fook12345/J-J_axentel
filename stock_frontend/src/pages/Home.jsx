@@ -34,7 +34,7 @@ function Home() {
                 <img src="/image/tic.png" alt="ticket" className="icon-image" />
                 <div className="icon-label">TICKET</div>
               </div>
-              <div className="icon-item">
+              <div className="icon-item" onClick={() => navigate("/user")}>
                 <img src="/image/user.png" alt="user" className="icon-image" />
                 <div className="icon-label">USER</div>
               </div>
