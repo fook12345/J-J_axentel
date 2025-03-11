@@ -56,7 +56,7 @@ function Sidebar() {
             />
             <span>DASHBOARD</span>
           </li>
-          <li className="menu-item">
+          <li className="menu-item" onClick={() => navigate("/notification")}>
             <img
               src="/image/noti.png"
               alt="notification"

@@ -23,6 +23,7 @@ import InventoryLocationFaulty from "./pages/InventoryLocationFaulty";
 import InventoryTest from "./pages/InventoryTest";
 import InventoryStatus from "./pages/InventoryStatus";
 import User from "./pages/User";
+import Notification from "./pages/Notification";
 
 function App() {
   return (
@@ -68,6 +69,7 @@ function App() {
       <Route path="/inventory/test" element={<InventoryTest />} />
       <Route path="/inventory/status" element={<InventoryStatus />} />
       <Route path="/user" element={<User />} />
+      <Route path="/notification" element={<Notification />} />
     </Routes>
   );
 }
