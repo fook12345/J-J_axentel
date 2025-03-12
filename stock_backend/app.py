@@ -5,6 +5,7 @@ from controllers.user_controller import user_bp  # ตัวอย่าง cont
 from controllers.ticket_controller import ticket_bp
 from controllers.inventory_controller import inventory_bp
 from controllers.notification_controller import notification_bp
+from controllers.dashboard_controller import dashboard_bp
 
 def create_app():
     app = Flask(__name__)
@@ -21,6 +22,8 @@ def create_app():
     app.register_blueprint(inventory_bp, url_prefix='/api/inventory')
 
     app.register_blueprint(notification_bp, url_prefix='/api/notification')
+
+    app.register_blueprint(dashboard_bp, url_prefix='/api/dashboard')
 
     # สามารถกำหนด Route หลักอื่น ๆ ได้ที่นี่ (เช่น /)
     @app.route('/')

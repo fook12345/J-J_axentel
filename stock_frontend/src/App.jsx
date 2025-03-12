@@ -6,6 +6,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import Home from "./pages/Home";
 import Warranty from "./pages/Warranty";
 import WarrantyRegister from "./pages/WarrantyRegister";
+import WarrantyDashboard from "./pages/WarrantyDashboard";
 import Ticket from "./pages/Ticket";
 import TicketCreate from "./pages/TicketCreate";
 import TicketCreateConfirm from "./pages/TicketCreateConfirm";
@@ -24,6 +25,7 @@ import InventoryTest from "./pages/InventoryTest";
 import InventoryStatus from "./pages/InventoryStatus";
 import User from "./pages/User";
 import Notification from "./pages/Notification";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
@@ -70,6 +72,11 @@ function App() {
       <Route path="/inventory/status" element={<InventoryStatus />} />
       <Route path="/user" element={<User />} />
       <Route path="/notification" element={<Notification />} />
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route
+        path="/warranty/WarrantyDashboard"
+        element={<WarrantyDashboard />}
+      />
     </Routes>
   );
 }

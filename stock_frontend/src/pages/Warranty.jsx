@@ -16,7 +16,10 @@ function Warranty() {
           <h1 className="page-title">WARRANTY</h1>
           <div className="icon-grid">
             {/* ไอคอน Dashboard */}
-            <div className="icon-item">
+            <div
+              className="icon-item"
+              onClick={() => navigate("/warranty/WarrantyDashboard")}
+            >
               <img
                 src="/image/dash war.jpg"
                 alt="dashboard"

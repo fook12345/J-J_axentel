@@ -48,7 +48,7 @@ function Sidebar() {
             <img src="/image/hom.png" alt="home icon" className="menu-icon" />
             <span>HOME</span>
           </li>
-          <li className="menu-item">
+          <li className="menu-item" onClick={() => navigate("/dashboard")}>
             <img
               src="/image/dashboard.png"
               alt="dashboard"
