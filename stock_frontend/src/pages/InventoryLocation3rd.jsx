@@ -4,6 +4,7 @@ import {} from "react-router-dom";
 import "./styles/InventoryLocationDetail.css";
 import Sidebar from "./components/Sidebar";
 import Headerbar from "./components/Headerbar";
+import * as XLSX from "xlsx"; // <-- เพิ่ม import xlsx
 
 function InventoryLocation3rd() {
   // State สำหรับข้อมูล Part ที่อยู่ใน 1st floor
@@ -22,7 +23,8 @@ function InventoryLocation3rd() {
         productId: "556988",
         serial: "KBN2123",
         health: "OK",
-        location: "SERVER (C5)",
+        location: "3rd floor",
+        subLocation: "C1", // เพิ่ม subLocation
       },
       {
         id: 2,
@@ -31,7 +33,8 @@ function InventoryLocation3rd() {
         productId: "SW-001",
         serial: "CS2960-1234",
         health: "Unknown",
-        location: "SWITCH (A9)",
+        location: "3rd floor",
+        subLocation: "A2",
       },
       // เพิ่มได้ตามต้องการ ...
     ];
@@ -40,8 +43,7 @@ function InventoryLocation3rd() {
 
   // ฟังก์ชันค้นหา
   const handleSearch = () => {
-    // ถ้าต้องการเชื่อม backend จริง ก็ fetch พร้อม query search
-    // ที่นี่สมมติกรองใน memory
+    // ตัวอย่างกรองใน memory
     const filtered = parts.filter((p) => {
       const text = searchText.toLowerCase();
       return (
@@ -50,7 +52,8 @@ function InventoryLocation3rd() {
         p.productId.toLowerCase().includes(text) ||
         p.serial.toLowerCase().includes(text) ||
         p.health.toLowerCase().includes(text) ||
-        p.location.toLowerCase().includes(text)
+        p.location.toLowerCase().includes(text) ||
+        (p.subLocation || "").toLowerCase().includes(text)
       );
     });
     setParts(filtered);
@@ -66,6 +69,7 @@ function InventoryLocation3rd() {
     serial: "",
     type: "",
     location: "",
+    subLocation: "", // เพิ่ม subLocation
   });
 
   // ออปชันสำหรับ Dropdown "Type"
@@ -82,38 +86,22 @@ function InventoryLocation3rd() {
     "Other Module",
   ];
 
-  // ออปชันสำหรับ Dropdown "Location"
-  const locationOptions = [
-    "1st(A1)",
-    "1st(A2)",
-    "1st(A3)",
-    "1st(C1)",
-    "1st(C2)",
-    "1st(E1)",
-    "1st(E2)",
-    "1st(B)",
-    "1st(D1)",
-    "1st(D2)",
-    "1st(D3)",
-    "1st(F1)",
-    "1st(F2)",
-    "1st(F3)",
-    "1st(L)",
-    "1st(J)",
-    "1st(H)",
-    "1st(S001-1)",
-    "1st(S001-2G)",
-    "1st(S001-3G)",
-    "1st(S001-4)",
-    "1st(S002-1)",
-    "1st(S002-2)",
-    "1st(S002-3)",
-    "1st(S002-4)",
-    "1st(Asus)",
-    "1st(Faulty-G)",
-    "3rd(Rack24)",
-    "3rd(Rack23)",
-    "faulty",
+  // ออปชันสำหรับ Dropdown "Location" (ชั้นหลัก)
+  const locationOptions = ["1st floor", "3rd floor", "faulty"];
+
+  // ออปชันสำหรับ Dropdown "Sub location"
+  const subLocationOptions = [
+    "A1",
+    "A2",
+    "A3",
+    "B1",
+    "C1",
+    "C2",
+    "D1",
+    "D2",
+    "Rack001",
+    "Rack002",
+    // ... เพิ่มได้ตามจริง ...
   ];
 
   // ฟังก์ชันเปิด Popup
@@ -125,6 +113,7 @@ function InventoryLocation3rd() {
       serial: "",
       type: "",
       location: "",
+      subLocation: "",
     });
     setShowAddPartPopup(true);
   };
@@ -160,13 +149,36 @@ function InventoryLocation3rd() {
     // หรือเรียก API หรือ navigate ไปหน้าอื่น
   };
 
+  const handleExportExcel = () => {
+    // แปลง parts ให้เป็น array ของ object ที่จะเขียนลง excel
+    // เช่น เปลี่ยน key ให้เป็นภาษาไทยหรือสากลตามต้องการ
+    const dataForExcel = parts.map((p) => ({
+      Type: p.type,
+      "Name Product": p.nameProduct,
+      "Product ID": p.productId,
+      "S/N": p.serial,
+      Health: p.health,
+      Location: p.location,
+      "Sub Location": p.subLocation,
+    }));
+
+    // สร้าง worksheet จาก data
+    const worksheet = XLSX.utils.json_to_sheet(dataForExcel);
+    // สร้าง workbook
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "1st Floor");
+
+    // เขียนไฟล์
+    XLSX.writeFile(workbook, "inventory_1st_floor.xlsx");
+  };
+
   return (
     <div className="home-container">
       <Sidebar />
       <div className="main-content">
         <Headerbar />
         <div className="content-area">
-          <h1 className="page-title">INVENTORY / LOCATION / 1st floor</h1>
+          <h1 className="page-title">INVENTORY / LOCATION / 3rd floor</h1>
 
           <div className="top-bar">
             <div className="search-container">
@@ -192,6 +204,7 @@ function InventoryLocation3rd() {
                 <th>S/N</th>
                 <th>Health</th>
                 <th>Location</th>
+                <th>Sub location</th> {/* เพิ่มคอลัมน์ sub location */}
                 <th></th> {/* สำหรับปุ่ม use part */}
               </tr>
             </thead>
@@ -204,6 +217,7 @@ function InventoryLocation3rd() {
                   <td>{p.serial}</td>
                   <td>{p.health}</td>
                   <td>{p.location}</td>
+                  <td>{p.subLocation || "-"}</td> {/* แสดง subLocation ถ้ามี */}
                   <td>
                     <button onClick={() => handleUsePart(p.id)}>
                       USE PART
@@ -213,6 +227,11 @@ function InventoryLocation3rd() {
               ))}
             </tbody>
           </table>
+          {/* ปุ่ม Export to Excel มุมขวาล่าง */}
+          <button className="export-excel-btn" onClick={handleExportExcel}>
+            Export to Excel
+          </button>
+
           {/* Popup ADD PART */}
           {showAddPartPopup && (
             <div className="popup-overlay">
@@ -276,6 +295,23 @@ function InventoryLocation3rd() {
                     {locationOptions.map((loc) => (
                       <option key={loc} value={loc}>
                         {loc}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Sub location */}
+                <div className="form-row">
+                  <label>Sub location:</label>
+                  <select
+                    name="subLocation"
+                    value={addPartData.subLocation}
+                    onChange={handleChange}
+                  >
+                    <option value="">--Select Sub location--</option>
+                    {subLocationOptions.map((subloc) => (
+                      <option key={subloc} value={subloc}>
+                        {subloc}
                       </option>
                     ))}
                   </select>

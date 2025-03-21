@@ -142,3 +142,21 @@
 .close-icon:hover {
   color: #666; /* เปลี่ยนสีหรือเอฟเฟ็กต์เมื่อ hover */
 }
+
+/* ปุ่ม Export Excel มุมขวาล่าง */
+.export-excel-btn {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  background-color: #ffa500;
+  color: #fff;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.export-excel-btn:hover {
+  background-color: #e69500;
+}

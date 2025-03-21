@@ -26,7 +26,8 @@ function TicketReturn() {
     part: "",
     serial: "",
     type: "",
-    location: "",
+    Location: "",
+    Sublocation: "",
   });
 
   // ดึงข้อมูล Ticket หรือใช้ dummy
@@ -55,7 +56,8 @@ function TicketReturn() {
         part: returnPart,
         serial: returnSerial,
         type: typeFromDB,
-        location: "1st (Faulty)",
+        Location: "Faulty",
+        Sublocation: "A3",
       });
       setShowPopup(true);
     } else {
@@ -65,7 +67,8 @@ function TicketReturn() {
         part: returnPart,
         serial: returnSerial,
         type: typeFromDB,
-        location: "1st (C1)",
+        Location: "1st",
+        Sublocation: "C1",
       });
       setShowPopup(true);
     }
@@ -81,6 +84,7 @@ function TicketReturn() {
       S/N: ${popupData.serial}
       Type: ${popupData.type}
       Location: ${popupData.location}
+      Sub location: ${popupData.sublocation}
     `);
 
     // ปิด popup
@@ -160,7 +164,8 @@ function TicketReturn() {
               <p>Part : {popupData.part}</p>
               <p>S/N : {popupData.serial}</p>
               <p>Type : {popupData.type}</p>
-              <p>Location : {popupData.location}</p>
+              <p>Location : {popupData.Location}</p>
+              <p>Sub location : {popupData.Sublocation}</p>
 
               <button className="add-button" onClick={handleAddToStock}>
                 Add to stock

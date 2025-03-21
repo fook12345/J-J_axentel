@@ -8,10 +8,10 @@ def get_connection():
     """
     try:
         connection = mysql.connector.connect(
-            host='192.168.1.246',
-            user='Jerry',
-            password='Google2012$Ma',
-            database='stock_app'
+            host='205.209.119.254',
+            user='manpad',
+            password='Google2012',
+            database='project_pro'
         )
         if connection.is_connected():
             print("เชื่อมต่อกับฐานข้อมูลสำเร็จ!")

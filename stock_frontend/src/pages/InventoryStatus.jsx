@@ -22,6 +22,7 @@ function InventoryStatus() {
     serial: "",
     type: "",
     location: "",
+    subLocation: "", // เพิ่ม subLocation
   });
   // ควบคุมโหมดแก้ไขใน Popup ADD
   const [editMode, setEditMode] = useState(false);
@@ -91,11 +92,12 @@ function InventoryStatus() {
     serial: "",
     type: "",
     location: "",
+    subLocation: "",
   });
 
   // ออปชันสำหรับ Dropdown "Type"
   const typeOptions = [
-    "Hdd",
+    "HDD",
     "Ram",
     "Switch",
     "Server",
@@ -108,39 +110,22 @@ function InventoryStatus() {
   ];
 
   // ออปชันสำหรับ Dropdown "Location"
-  const locationOptions = [
-    "1st(A1)",
-    "1st(A2)",
-    "1st(A3)",
-    "1st(C1)",
-    "1st(C2)",
-    "1st(E1)",
-    "1st(E2)",
-    "1st(B)",
-    "1st(D1)",
-    "1st(D2)",
-    "1st(D3)",
-    "1st(F1)",
-    "1st(F2)",
-    "1st(F3)",
-    "1st(L)",
-    "1st(J)",
-    "1st(H)",
-    "1st(S001-1)",
-    "1st(S001-2G)",
-    "1st(S001-3G)",
-    "1st(S001-4)",
-    "1st(S002-1)",
-    "1st(S002-2)",
-    "1st(S002-3)",
-    "1st(S002-4)",
-    "1st(Asus)",
-    "1st(Faulty-G)",
-    "3rd(Rack24)",
-    "3rd(Rack23)",
-    "faulty",
-  ];
+  const locationOptions = ["1st floor", "3rd floor", "faulty"];
 
+  // ออปชันสำหรับ Dropdown "Sub location"
+  const subLocationOptions = [
+    "A1",
+    "A2",
+    "A3",
+    "B1",
+    "C1",
+    "C2",
+    "D1",
+    "D2",
+    "Rack001",
+    "Rack002",
+    // ... เพิ่มได้ตามจริง ...
+  ];
   // ฟังก์ชันเปิด Popup
   const handleOpenAddPart = () => {
     // รีเซ็ตฟอร์มหรือจะตั้งค่าเริ่มต้นก็ได้
@@ -191,7 +176,8 @@ function InventoryStatus() {
       part: item.productId, // สมมติว่าคิดว่า productId = part
       serial: item.serial,
       type: item.type,
-      location: "1st (C1)", // ตัวอย่าง location เริ่มต้น
+      location: "1st floor", // ตัวอย่าง location เริ่มต้น
+      subLocation: "A1",
     });
     setEditMode(false); // เริ่มต้นเป็นอ่านอย่างเดียว
     setShowAddPopup(true);
@@ -219,12 +205,10 @@ function InventoryStatus() {
     setAddPopupData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // ปุ่ม Edit ใน Popup
   const handleEditPopup = () => {
     setEditMode(true);
   };
 
-  // ปุ่ม Add to stock
   const handleAddToStock = () => {
     alert(`Add to stock with data:
       Name Product = ${addPopupData.nameProduct}
@@ -232,8 +216,8 @@ function InventoryStatus() {
       Serial = ${addPopupData.serial}
       Type = ${addPopupData.type}
       Location = ${addPopupData.location}
+      Sub location = ${addPopupData.subLocation}
     `);
-    // หลังจากบันทึก (เรียก API) สำเร็จ -> ปิด popup
     setShowAddPopup(false);
   };
 
@@ -455,36 +439,74 @@ function InventoryStatus() {
               </div>
             </div>
 
-            {/* Type */}
+            {/* Type (dropdown เมื่อ editMode=true) */}
             <div className="popup-row">
               <div className="popup-label">Type</div>
               <div className="popup-colon">:</div>
               <div className="popup-value">
                 {editMode ? (
-                  <input
+                  <select
                     name="type"
                     value={addPopupData.type}
                     onChange={handleChangePopup}
-                  />
+                  >
+                    <option value="">--Select Type--</option>
+                    {typeOptions.map((opt) => (
+                      <option key={opt} value={opt}>
+                        {opt}
+                      </option>
+                    ))}
+                  </select>
                 ) : (
                   addPopupData.type
                 )}
               </div>
             </div>
 
-            {/* Location */}
+            {/* Location (dropdown เมื่อ editMode=true) */}
             <div className="popup-row">
               <div className="popup-label">Location</div>
               <div className="popup-colon">:</div>
               <div className="popup-value">
                 {editMode ? (
-                  <input
+                  <select
                     name="location"
                     value={addPopupData.location}
                     onChange={handleChangePopup}
-                  />
+                  >
+                    <option value="">--Select Location--</option>
+                    {locationOptions.map((loc) => (
+                      <option key={loc} value={loc}>
+                        {loc}
+                      </option>
+                    ))}
+                  </select>
                 ) : (
                   addPopupData.location
+                )}
+              </div>
+            </div>
+
+            {/* Sub location (dropdown เมื่อ editMode=true) */}
+            <div className="popup-row">
+              <div className="popup-label">Sub location</div>
+              <div className="popup-colon">:</div>
+              <div className="popup-value">
+                {editMode ? (
+                  <select
+                    name="subLocation"
+                    value={addPopupData.subLocation}
+                    onChange={handleChangePopup}
+                  >
+                    <option value="">--Select Sub location--</option>
+                    {subLocationOptions.map((subloc) => (
+                      <option key={subloc} value={subloc}>
+                        {subloc}
+                      </option>
+                    ))}
+                  </select>
+                ) : (
+                  addPopupData.subLocation || "-"
                 )}
               </div>
             </div>
@@ -566,6 +588,23 @@ function InventoryStatus() {
                 {locationOptions.map((loc) => (
                   <option key={loc} value={loc}>
                     {loc}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Sub location */}
+            <div className="form-row">
+              <label>Sub location:</label>
+              <select
+                name="subLocation"
+                value={addPartData.subLocation}
+                onChange={handleChange}
+              >
+                <option value="">--Select Sub location--</option>
+                {subLocationOptions.map((subloc) => (
+                  <option key={subloc} value={subloc}>
+                    {subloc}
                   </option>
                 ))}
               </select>
